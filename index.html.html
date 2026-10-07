@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberatoria Minorenni - Compilazione e Firma</title>
+    <!-- Librerie essenziali per firma e PDF -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #525659; font-family: 'Helvetica', 'Arial', sans-serif; }
+        
+        #main-wrapper { max-width: 800px; margin: 20px auto; padding: 0 10px; }
+
+        /* Contenitore A4 con margini protetti e ritorno a capo forzato */
+        #documento-pdf { 
+            background-color: #ffffff; 
+            padding: 30px 40px; 
+            box-sizing: border-box; 
+            color: #000; 
+            font-size: 14px; 
+            text-align: justify; 
+            line-height: 1.5; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        h1 { text-align: center; font-size: 15px; margin-bottom: 25px; line-height: 1.3; }
+        p { margin-bottom: 12px; }
+
+        .input-field { border: none; border-bottom: 1px solid #000; font-family: inherit; font-size: inherit; background: transparent; outline: none; padding: 0 5px; color: #0033a0; font-weight: bold; }
+        .input-field::placeholder { color: #888; font-weight: normal; }
+        
+        input[type="checkbox"] { transform: scale(1.3); margin-right: 8px; cursor: pointer; }
+
+        .signature-area { margin-top: 30px; page-break-inside: avoid; break-inside: avoid; }
+        
+        /* Contenitore della firma */
+        .canvas-container { border: 2px dashed #ccc; background: #fafafa; width: 100%; height: 140px; margin-top: 5px; position: relative; }
+        /* Il canvas deve riempire perfettamente il contenitore e bloccare lo scorrimento touch */
+        .signature-pad { width: 100%; height: 100%; cursor: crosshair; touch-action: none; position: absolute; top: 0; left: 0; }
+        
+        .btn-clear { background: transparent; border: 1px solid #d9534f; color: #d9534f; padding: 6px 12px; cursor: pointer; font-size: 12px; margin-top: 8px; border-radius: 4px; font-weight: bold; }
+        
+        .btn-invia { display: block; width: 100%; padding: 18px; background-color: #28a745; color: white; font-size: 18px; font-weight: bold; text-align: center; border: none; border-radius: 5px; cursor: pointer; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .btn-invia:hover { background-color: #218838; }
+
+        #messaggio-stato { text-align: center; font-weight: bold; font-size: 16px; color: #fff; margin-bottom: 10px; min-height: 24px; }
+    </style>
+</head>
+<body>
+
+<div id="main-wrapper">
+    <div id="messaggio-stato"></div>
+
+    <div id="documento-pdf">
+        
+        <h1>DICHIARAZIONE LIBERATORIA E RACCOLTA DEL CONSENSO PER LA<br>RACCOLTA E PUBBLICAZIONE DEI MATERIALI NEL CORSO DELL'EVENTO</h1>
+        
+        <p><strong>Premesso che</strong><br>
+        a) Eni S.p.A., P.IVA n. 00905811006, con sede legale a Piazzale Enrico Mattei, 100144 Roma, (la "Società") è organizzatrice dell'evento "TRANSIZIONE ENERGETICA" al quale Lei è stato invitato a partecipare ("Evento");<br>
+        b) durante l'Evento saranno realizzate delle riprese fotografiche, audio e/o video direttamente da Eni e/o da soggetti da Eni incaricati o coinvolti nell'Evento ("Materiale");<br>
+        c) il Materiale potrà riguardare indistintamente tutti i partecipanti all'Evento e i dipendenti e/o lavoratori della Società ("Partecipanti"). Le immagini relative a Suo figlio o al minore su cui Lei esercita la responsabilità genitoriale, e le Sue Dichiarazioni potranno essere incluse nelle fotografie, negli audio e/o nei video contenuti nel Materiale,</p>
+
+        <p><strong>con la presente</strong></p>
+        
+        <p>
+            il/la sottoscritto/a <input type="text" class="input-field" placeholder="Nome e Cognome" style="width: 300px;"><br><br>
+            residente in <input type="text" class="input-field" placeholder="Città" style="width: 200px;">
+            Via <input type="text" class="input-field" placeholder="Indirizzo e civico" style="width: 200px;"><br><br>
+            nato/a a <input type="text" class="input-field" placeholder="Luogo di nascita" style="width: 200px;"> 
+            il <input type="text" class="input-field" placeholder="gg/mm/aaaa" style="width: 120px;">
+        </p>
+
+        <p>
+            <input type="checkbox"> anche per conto di suo figlio o del minore su cui esercita la responsabilità genitoriale<br><br>
+            <input type="text" class="input-field" placeholder="Nome Minore" style="width: 300px;"><br><br>
+            nato/a a <input type="text" class="input-field" placeholder="Luogo di nascita" style="width: 200px;">
+            il <input type="text" class="input-field" placeholder="gg/mm/aaaa" style="width: 120px;">
+        </p>
+
+        <p><input type="checkbox"> <strong>dichiara quanto segue anche per conto di suo figlio o del minore su cui esercita la responsabilità genitoriale</strong></p>
+
+        <p>1. Il Partecipante autorizza la Società e i soggetti incaricati e/o coinvolti da Eni nella realizzazione dell'Evento (in tutto il mondo, in perpetuo, in esclusiva, a titolo gratuito e con facoltà di sub-concessione a terzi, ivi incluse le società del gruppo Eni) allo svolgimento delle seguenti attività:<br>
+        A. fissazione, riproduzione con qualsiasi procedimento, comunicazione, trasmissione e/o diffusione dei Materiali: (i) con qualsiasi mezzo e/o sistema di trasmissione e diffusione attuale o inventato in futuro, a titolo meramente esemplificativo: in sede televisiva (Free tv, Pay tv, Pay-per-view, Near video on demand, Video on demand, etc.), radiofonica, cinematografica (theatrical, non-theatrical, public video, etc.), audiovisiva (home-video, home entertainment e commercial video, videocassette, nastri videomagnetici, videodischi, dischi laser, CD, CD-ROM, CDi, Dvd, etc., che possano richiedere o meno l'uso di un computer per l'elaborazione e/o lo sviluppo e/o la diffusione), a mezzo rete informatica (anche via Internet e intranet o tramite social network) e telefonica sia fissa che mobile, e (ii) utilizzando qualsiasi strumento di trasmissione, diffusione e ricezione, attuale o inventato in futuro (a titolo esemplificativo: satellite, cavo a fibra ottica, cavo telefonico, filo, mmds, digitale, DVB-H, DVB-X, etc.), e (iii) in qualsiasi forma e modalità e quindi, a titolo meramente esemplificativo, in chiaro, ad accesso condizionato, in forma codificata e/o criptata, gratuita e/o a pagamento, analogica e/o digitale, multimediale e/o interattiva (CD-Rom, CDi, microdisk, disk, nastri digitali, Video CD,); e (iv) con l'impiego di qualsiasi tecnologia (wireless, etc.) e protocollo (TCP/IP, Gsm, Gprs, Umts) attuale o sviluppato in futuro, e (v) per la ricezione su qualsiasi terminale, anche attualmente non esistente (schermi di televisori, display di personal computer, fissi e mobili, display di telefoni fissi e mobili, video);<br>
+        B. riproduzione e pubblicazione delle immagini del Partecipante nell'ambito di iniziative commerciali e/o promozionali in relazione all'Evento (comunicazioni commerciali, autopromozioni, campagne di sensibilizzazione, attività di merchandising, etc.) o per scopi istituzionali, in entrambi i casi sia su mezzi tradizionali (per esempio carta stampata) che di altro tipo come quelli indicati al punto A che precede;<br>
+        C. utilizzazione di fotografie che ritraggono il Partecipante nonché trasmissione / utilizzazione di spezzoni, estratti, sequenze e/o immagini dei Materiali, o delle Sue dichiarazioni, anche per la realizzazione di opere complesse, derivate o d'altro tipo come, a titolo meramente esemplificativo, special, backstage, promo, forme di pubblicità, senza che per tali sfruttamenti il Partecipante abbia a percepire alcun compenso, indennità, rimborso.</p>
+
+        <p>2. Il Partecipante prende atto che, fermo restando quanto previsto dal paragrafo che precede, la Società ha la facoltà ma non l'obbligo di esercitare i diritti ivi previsti. In caso di utilizzo dei Materiali, la Società si impegna a non ledere la reputazione, l'onore e il decoro del Partecipante.</p>
+
+        <p>3. Il Partecipante si obbliga, durante lo svolgimento dell'Evento e nel corso della raccolta dei Materiali, a comportarsi in conformità alle direttive e istruzioni fornite dal personale o dalle persone incaricate della Società. In caso di violazione di tali direttive e istruzioni, il personale sopra menzionato avrà diritto di procedere all'allontanamento del Partecipante dai luoghi di svolgimento dell'Evento, fermo restando il diritto della Società al risarcimento degli eventuali danni subiti.</p>
+
+        <p>4. Il Partecipante dichiara e garantisce di non avere vincoli contrattuali o fattuali che impediscano o limitino lo svolgimento, da parte della Società e dei terzi, delle attività di cui alla presente Dichiarazione liberatoria e si obbliga a manlevare e tenere indenne la Società da qualsiasi danno, pregiudizio, costo, spesa (incluse le spese legali), sanzione o qualsivoglia altro onere derivanti da pretese o azioni giudiziarie, arbitrali o amministrative da parte di qualsiasi terzo, ivi incluse le pubbliche amministrazioni, nazionali o internazionali, derivanti da una violazione delle rappresentazioni prestate dal Partecipante nell'ambito della presente Dichiarazione.</p>
+
+        <p>5. Il Partecipante è responsabile, nei confronti della Società e dei terzi, per gli atti compiuti e le dichiarazioni rese durante lo svolgimento dell'Evento e la raccolta dei Materiali e, pertanto, si obbliga a manlevare e tenere indenne la Società da qualsiasi danno, pregiudizio, costo, spesa (incluse le spese legali), sanzione o qualsivoglia altro onere derivante da pretese o azioni giudiziarie, arbitrali o amministrative da parte di qualsiasi terzo causato alla Società dalle predette azioni e dichiarazioni del Partecipante. Il Partecipante prende altresì atto che la Società non è responsabile per danni alla persona o a beni del Partecipante occorsi durante lo svolgimento dell'Evento e la raccolta dei Materiali, salvi i casi di dolo o colpa grave della medesima Società.</p>
+
+        <p>6. Il Partecipante ha l'autorità e il potere di disporre di tutti i diritti concessi ai sensi della presente Dichiarazione liberatoria.</p>
+
+        <p>7. Ferma restando la gratuità della presente Dichiarazione liberatoria, il Partecipante rinuncia altresì a qualsiasi menzione in occasione dello sfruttamento dei Materiali da parte della Società e/o le società del gruppo Eni e/o degli altri soggetti coinvolti o incaricati nell'ambito dell'Evento e di rinunciare espressamente a esperire alcuna azione nei confronti delle predette società, al fine di rivendicare pagamenti o altro, per tale utilizzo passato, presente o futuro.</p>
+
+        <p>8. Il Partecipante ha ricevuto l'informativa per il trattamento dei dati personali, Allegato 1 alla presente Dichiarazione liberatoria.</p>
+
+        <p>9. La presente liberatoria è regolata dalla legge italiana, con esclusione delle norme di diritto internazionale privato. Ogni controversia relativa alla presente Dichiarazione liberatoria è devoluta alla competenza esclusiva del Foro di Milano.</p>
+
+        <div class="signature-area">
+            <p><strong>In fede, In proprio e nella qualità di genitore/esercente la potestà genitoriale.</strong></p>
+            <p>Luogo e data: <input type="text" class="input-field" style="width: 250px;"></p>
+            <div class="canvas-container">
+                <canvas id="pad1" class="signature-pad"></canvas>
+            </div>
+            <button class="btn-clear" onclick="firma1.clear()">Cancella Firma</button>
+        </div>
+
+        <div class="signature-area">
+            <p><strong>Luogo/data/firma dell'altro genitore</strong></p>
+            <p>Luogo e data: <input type="text" class="input-field" style="width: 250px;"></p>
+            <div class="canvas-container">
+                <canvas id="pad2" class="signature-pad"></canvas>
+            </div>
+            <button class="btn-clear" onclick="firma2.clear()">Cancella Firma</button>
+        </div>
+
+        <div class="signature-area">
+            <p><strong>Ai sensi dell'art. 1341 del Codice civile, approvo specificamente i paragrafi 4, 5 e 9.</strong></p>
+            <p>Luogo e data: <input type="text" class="input-field" style="width: 250px;"></p>
+            <div class="canvas-container">
+                <canvas id="pad3" class="signature-pad"></canvas>
+            </div>
+            <button class="btn-clear" onclick="firma3.clear()">Cancella Firma</button>
+        </div>
+
+    </div>
+
+    <button id="btnEsporta" class="btn-invia">SALVA PDF IMPAGINATO E INVIA EMAIL</button>
+</div>
+
+<script>
+    let firma1, firma2, firma3;
+
+    // Inizializza le firme SOLO quando la pagina è stata completamente caricata (evita blocchi touch o canvas vuoti)
+    window.addEventListener('load', function() {
+        function setupCanvas(id) {
+            const canvas = document.getElementById(id);
+            // Assicura che la larghezza e l'altezza interne corrispondano a quelle visibili
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            const pad = new SignaturePad(canvas, { backgroundColor: 'rgb(255, 255, 255)' });
+            pad.clear(); // Reset obbligatorio per tarare le coordinate del touch
+            return pad;
+        }
+
+        firma1 = setupCanvas('pad1');
+        firma2 = setupCanvas('pad2');
+        firma3 = setupCanvas('pad3');
+    });
+
+    // Motore di Salvataggio
+    document.getElementById('btnEsporta').addEventListener('click', function() {
+        const statusEl = document.getElementById('messaggio-stato');
+        const docHtml = document.getElementById('documento-pdf');
+
+        window.scrollTo(0, 0);
+        statusEl.innerText = "⏳ Creazione PDF in corso, attendere prego...";
+
+        document.querySelectorAll('.btn-clear').forEach(btn => btn.style.display = 'none');
+
+        // Congelamento dei testi editabili in testo stampabile
+        document.querySelectorAll('.input-field').forEach(input => {
+            const staticText = document.createElement('span');
+            staticText.innerText = input.value || '';
+            staticText.className = 'static-print-item';
+            staticText.style.cssText = input.style.cssText;
+            staticText.style.borderBottom = '1px solid #000';
+            staticText.style.display = 'inline-block';
+            staticText.style.minHeight = '1.2em';
+            input.style.display = 'none';
+            input.parentNode.insertBefore(staticText, input);
+        });
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+            const staticBox = document.createElement('span');
+            staticBox.innerHTML = box.checked ? '&#9746;' : '&#9744;';
+            staticBox.className = 'static-print-item';
+            staticBox.style.fontSize = '18px';
+            staticBox.style.marginRight = '8px';
+            box.style.display = 'none';
+            box.parentNode.insertBefore(staticBox, box);
+        });
+
+        // Congela le firme trasformandole in immagini fisse
+        document.querySelectorAll('.signature-pad').forEach(canvas => {
+            const img = document.createElement('img');
+            img.src = canvas.toDataURL('image/png');
+            img.className = 'static-print-item';
+            img.style.width = '100%';
+            img.style.height = '140px';
+            img.style.objectFit = 'contain';
+            img.style.backgroundColor = '#fff';
+            canvas.style.display = 'none';
+            canvas.parentNode.insertBefore(img, canvas);
+        });
+
+        // Impostazioni PDF: margini di sicurezza su tutti i lati, blocco pagebreak sulle firme
+        const opzioni = {
+            margin:       15, 
+            filename:     'Liberatoria_Compilata.pdf',
+            image:        { type: 'jpeg', quality: 1 },
+            html2canvas:  { scale: 2, useCORS: true, scrollY: 0, scrollX: 0 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: 'css', avoid: '.signature-area' }
+        };
+
+        html2pdf().set(opzioni).from(docHtml).save().then(() => {
+            // Scongela il documento
+            document.querySelectorAll('.static-print-item').forEach(el => el.remove());
+            document.querySelectorAll('input, .signature-pad').forEach(el => el.style.display = '');
+            document.querySelectorAll('.btn-clear').forEach(btn => btn.style.display = 'inline-block');
+            
+            statusEl.innerText = "✅ Salvataggio Completato! Apro la tua mail...";
+            
+            setTimeout(() => {
+                window.location.href = "mailto:bric81500g@istruzione.it?subject=Invio Liberatoria Firmata&body=In allegato il documento PDF.%0D%0A%0D%0A(Ricordati di trascinare il file appena scaricato all'interno di questa mail)";
+                setTimeout(() => { statusEl.innerText = ""; }, 5000);
+            }, 1000);
+
+        }).catch(err => {
+            document.querySelectorAll('.static-print-item').forEach(el => el.remove());
+            document.querySelectorAll('input, .signature-pad, .btn-clear').forEach(el => el.style.display = '');
+            statusEl.innerText = "❌ Si è verificato un errore durante la stampa.";
+        });
+    });
+</script>
+</body>
+</html>
